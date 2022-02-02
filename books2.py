@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from uuid import UUID
 
 
@@ -7,7 +7,7 @@ app = FastAPI()
 
 class Book(BaseModel):
     id: UUID
-    title: str
+    title: str = Field(min_length=12)
     author: str
     description: str
     rating: int
