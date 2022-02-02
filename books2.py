@@ -14,14 +14,32 @@ class Book(BaseModel):
     description: Optional[str] = Field(title="Description of the book", max_lengh=100, min_length=1)
     rating: int = Field(gt=-1, lt=101)
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "title": "title 1, has to be at least 12",
+                "author": "author",
+                "description": "description",
+                "rating": 50
+            }
+        }
+
 
 BOOKS = []
 
 
 @app.get("/")
-async def read_all_books():
+async def read_all_books(books_to_return: Optional[int] = None):
     if len(BOOKS) < 1:
         create_books_no_api()
+    if books_to_return and len(BOOKS) >= books_to_return > 0:
+        i = 1
+        new_books = []
+        while i <= books_to_return:
+            new_books.append(BOOKS[i - 1])
+            i += 1
+        return new_books
     return BOOKS
 
 
@@ -32,6 +50,6 @@ async def create_book(book: Book):
 
 
 def create_books_no_api():
-    book_1 = Book(id="3fa85f64-5717-4562-b3fc-2c963f66afa6", title="title 1, has to be at least 12", author="author",
-                  description="description", rating=50)
+    book_1 = Book(id="3fa85f64-5717-4562-b3fc-2c963f66afa6", title="title 1, has to be at least 12",
+                  author="author", description="description", rating=50)
     BOOKS.append(book_1);
