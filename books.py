@@ -24,8 +24,10 @@ class DirectionName(str, Enum):
     west = "West"
 
 @app.get("/")
-async def read_all_books():
-    return BOOKS
+async def read_all_books(skip_book: str = "book_3"):
+    new_books = BOOKS.copy()
+    del new_books[skip_book]
+    return new_books
 
 @app.get("/books/{book_title}")
 async def read_a_book(book_title):
