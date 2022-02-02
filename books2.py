@@ -67,11 +67,16 @@ async def delete_book(book_id: UUID):
         if x.id == book_id:
             del BOOKS[counter - 1]
             return f'ID:{book_id} deleted'
-    raise HTTPException(status_code=404, detail="Book not found",
-                        headers={"X-Header-Error": "Nothing to be seen at the UUID"})
+    raise raise_item_cannot_be_found_exception()
 
 
 def create_books_no_api():
     book_1 = Book(id="3fa85f64-5717-4562-b3fc-2c963f66afa6", title="title 1, has to be at least 12",
                   author="author", description="description", rating=50)
     BOOKS.append(book_1);
+
+
+def raise_item_cannot_be_found_exception():
+    return HTTPException(status_code=404,
+                         detail="Book not found",
+                         headers={"X-Header-Error": "Nothing to be seen at the UUID"})
