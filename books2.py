@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from uuid import UUID
 
@@ -66,7 +66,7 @@ async def delete_book(book_id: UUID):
         if x.id == book_id:
             del BOOKS[counter -1]
             return f'ID:{book_id} deleted'
-
+    raise HTTPException(status_code=404, detail="Book not found")
 
 def create_books_no_api():
     book_1 = Book(id="3fa85f64-5717-4562-b3fc-2c963f66afa6", title="title 1, has to be at least 12",
