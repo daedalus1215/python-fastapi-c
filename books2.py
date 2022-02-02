@@ -57,6 +57,7 @@ async def update_book(book_id: UUID, book: Book):
         if x.id == book_id:
             BOOKS[counter - 1] = book
             return BOOKS[counter - 1]
+    raise raise_item_cannot_be_found_exception()
 
 
 @app.delete("/{book_id}")
