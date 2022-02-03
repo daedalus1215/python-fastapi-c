@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
-router = APIRouter(prefix="/todos", tags=["todos"],responses={401: {"description":"Not Found"}})
+router = APIRouter()
 
 def get_db():
     try:
