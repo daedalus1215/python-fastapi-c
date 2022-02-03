@@ -29,6 +29,16 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4677eb71-a656-4c93-9b25-fda77f7fef5e">
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
+      <console name="Connection 1" type="STANDARD" schema="main" session="Main"><![CDATA[select
+    u.email,
+    u.first_name,
+    u.hashed_password,
+    u.id,
+    u.is_active,
+    u.last_name,
+    u.username
+from
+    users u;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
