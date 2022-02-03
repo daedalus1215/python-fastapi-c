@@ -1,15 +1,16 @@
 from typing import Optional
-
 from fastapi import FastAPI, Depends, HTTPException
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
+from auth import router
 
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
 
+app.include_router(router)
 
 def get_db():
     try:
