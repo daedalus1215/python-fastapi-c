@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
-router = APIRouter()
+router = APIRouter(prefix="/todos", tags=["todos"],responses={401: {"description":"Not Found"}})
 
 def get_db():
     try:
@@ -26,7 +26,7 @@ async def read_all(db: Session = Depends(get_db)):
     return db.query(models.Todos).all()
 
 
-@router.get("/todo/{todo_id}")
+@router.get("/{todo_id}")
 async def read_todo(todo_id: int, db: Session = Depends(get_db)):
     todo_model = db.query(models.Todos).filter(models.Todos.id == todo_id).first()
     if todo_model is not None:
